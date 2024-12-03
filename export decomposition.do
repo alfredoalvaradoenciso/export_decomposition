@@ -30,8 +30,15 @@ save tradegtm, replace
 */
 
 use tradegtm, clear
-local initialyear=2011
-local endyear=2023
+
+import excel "C:\Users\Dell\Downloads\RUS2001_2008_2015.xlsx", sheet("Sheet1") firstrow clear
+keep refYear reporterISO  partnerISO cmdCode fobvalue
+destring cmdCode, replace
+egen destine=group(partnerISO), label
+drop partnerISO
+
+local initialyear=2001
+local endyear=2015
 
 keep if refYear==`initialyear' | refYear==`endyear'
 
